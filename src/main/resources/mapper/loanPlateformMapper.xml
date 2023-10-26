@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.LoanPlateformMapper">
+
+    <resultMap id="loanPlateformResult" type="com.ssix.project02.pojo.LoanPlateform">
+        <!--  property为实体类中名称，column为数据库中名称  -->
+        <id property="id" column="id"/>
+        <result property="loanPlateformName" column="loan_Plateform_Name"></result>
+        <result property="loanPlateformStatus" column="loan_plateform_status"></result>
+        <result property="loanType" column="loan_type"></result>
+        <result property="clientNum" column="client_num"></result>
+        <result property="moneySet" column="money_set"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+    </resultMap>
+
+    <!-- sql片段（可复用sql语句块）-->
+    <sql id="set-if-loan">
+        <if test="loanPlateformName!=null">
+            loan_Plateform_Name = #{loanPlateformName} ,
+        </if>
+        <if test="loanPlateformStatus!=null">
+            loan_plateform_status = #{loanPlateformStatus} ,
+        </if>
+        <if test="loanType!=null">
+            loan_type = #{loanType} ,
+        </if>
+    </sql>
+
+    <select id="getLoanPlateform" resultMap="loanPlateformResult">
+        select * from loan_plateform
+    </select>
+
+    <select id="findLoanPlateformByName" resultMap="loanPlateformResult">
+        select * from loan_plateform where loan_Plateform_Name LIKE CONCAT('%', #{loanPlateformName,jdbcType=VARCHAR}, '%')
+    </select>
+
+    <select id="getLoanPlateformById" resultMap="loanPlateformResult">
+        select * from loan_plateform where id=#{id}
+    </select>
+
+    <insert id="addLoanPlateform" parameterType="com.ssix.project02.pojo.LoanPlateform">
+        insert into loan_plateform(loan_Plateform_Name,loan_plateform_status,loan_type,client_num,money_set,create_time,update_time) values(#{loanPlateformName},#{loanPlateformStatus},#{loanType},#{clientNum},#{moneySet},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateLoanPlateform" parameterType="com.ssix.project02.pojo.LoanPlateform">
+        update loan_plateform
+        <set>
+            <include refid="set-if-loan"></include>
+            <if test="clientNum!=null">
+                client_num = #{clientNum} ,
+            </if>
+            <if test="moneySet!=null">
+                money_set = #{moneySet} ,
+            </if>
+            <if test="createTime!=null">
+                create_time = #{createTime} ,
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime} ,
+            </if>
+        </set>
+
+        where id= #{id}
+    </update>
+
+    <delete id="deleteLoanPlateform">
+        delete  from loan_plateform where id = #{id}
+    </delete>
+
+</mapper>

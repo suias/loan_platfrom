@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.SalesPersonMapper">
+
+    <resultMap id="salesPersonResult" type="com.ssix.project02.pojo.SalesPerson">
+        <id property="id" column="ID"/>
+    </resultMap>
+
+    <select id="getSalesPerson" resultMap="salesPersonResult">
+        select * from salesperson
+    </select>
+
+    <select id="getSalesPersonById" resultMap="salesPersonResult">
+        select * from salesperson where ID=#{id}
+    </select>
+
+    <insert id="addSalesPerson" parameterType="com.ssix.project02.pojo.SalesPerson">
+        insert into salesperson(Name,Contact,Gender,Age,HireDate)values(#{Name},#{Contact},#{Gender},#{Age},#{HireDate})
+    </insert>
+
+    <update id="updateSalesPerson" parameterType="com.ssix.project02.pojo.SalesPerson">
+        update salesperson
+        <set>
+            <if test="Name!=null">
+                Name = #{Name} ,
+            </if>
+            <if test="Contact!=null">
+                Contact = #{Contact} ,
+            </if>
+            <if test="Gender!=null">
+                Gender = #{Gender} ,
+            </if>
+            <if test="Age!=null">
+                Age = #{Age} ,
+            </if>
+            <if test="HireDate!=null">
+                HireDate = #{HireDate} ,
+            </if>
+        </set>
+
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteSalesPerson">
+        delete from salesperson where ID = #{id}
+    </delete>
+
+</mapper>

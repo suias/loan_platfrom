@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.PettyLoanMapper">
+
+    <resultMap id="pettyLoanResult" type="com.ssix.project02.pojo.PettyLoan">
+        <id property="id" column="ID"/>
+    </resultMap>
+
+    <select id="getPettyLoan" resultMap="pettyLoanResult">
+        select * from petty_loanplatform
+    </select>
+
+    <select id="getPettyLoanById" resultMap="pettyLoanResult">
+        select * from petty_loanplatform where ID=#{id}
+    </select>
+
+    <insert id="addPettyLoan" parameterType="com.ssix.project02.pojo.PettyLoan">
+        insert into petty_loanplatform(PartyName,PartyPhone,AmountSetting,Recharge,CommissionRate,AutoOffsetFlowCost,CreditScore) values(#{PartyName},#{PartyPhone},#{AmountSetting},#{Recharge},#{CommissionRate},#{AutoOffsetFlowCost},#{CreditScore})
+    </insert>
+
+    <update id="updatePettyLoan" parameterType="com.ssix.project02.pojo.PettyLoan">
+        update petty_loanplatform
+        <set>
+            <if test="PartyName!=null">
+                PartyName = #{PartyName} ,
+            </if>
+            <if test="PartyPhone!=null">
+                PartyPhone = #{PartyPhone} ,
+            </if>
+            <if test="AmountSetting!=null">
+                AmountSetting = #{AmountSetting} ,
+            </if>
+            <if test="Recharge!=null">
+                Recharge = #{Recharge} ,
+            </if>
+            <if test="CommissionRate!=null">
+                CommissionRate = #{CommissionRate} ,
+            </if>
+            <if test="AutoOffsetFlowCost!=null">
+                AutoOffsetFlowCost = #{AutoOffsetFlowCost} ,
+            </if>
+            <if test="CreditScore!=null">
+                CreditScore = #{CreditScore} ,
+            </if>
+        </set>
+
+        where ID = #{id}
+    </update>
+
+    <delete id="deletePettyLoan">
+        delete from petty_loanplatform where ID = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.CustInteractMapper">
+
+    <resultMap id="custInteractResult" type="com.ssix.project02.pojo.CustInteract">
+        <id property="id" column="ID"/>
+    </resultMap>
+
+    <select id="getCustInteract" resultMap="custInteractResult">
+        select * from customer_interaction
+    </select>
+
+    <select id="getCustInteractById" resultMap="custInteractResult">
+        select * from customer_interaction where ID=#{id}
+    </select>
+
+    <insert id="addCustInteract" parameterType="com.ssix.project02.pojo.CustInteract">
+        insert into customer_interaction(SalespersonID,OrderID,InteractionInfo,CreateTime,UpdateTime) values(#{SalespersonID},#{OrderID},#{InteractionInfo},#{CreateTime},#{UpdateTime})
+    </insert>
+
+    <update id="updateCustInteract" parameterType="com.ssix.project02.pojo.CustInteract">
+        update customer_interaction
+        <set>
+            <if test="SalespersonID!=null">
+                SalespersonID = #{SalespersonID} ,
+            </if>
+            <if test="OrderID!=null">
+                OrderID = #{OrderID} ,
+            </if>
+            <if test="InteractionInfo!=null">
+                InteractionInfo = #{InteractionInfo} ,
+            </if>
+            <if test="CreateTime!=null">
+                CreateTime = #{CreateTime} ,
+            </if>
+            <if test="UpdateTime!=null">
+                UpdateTime = #{UpdateTime} ,
+            </if>
+        </set>
+
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteCustInteract">
+        delete from customer_interaction where ID = #{id}
+    </delete>
+
+</mapper>

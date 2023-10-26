@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.SalesPersonAllocateMapper">
+
+    <resultMap id="salesPersonAllocateResult" type="com.ssix.project02.pojo.SalesPersonAllocate">
+        <id property="id" column="ID"/>
+    </resultMap>
+
+    <select id="getSalesPersonAllocate" resultMap="salesPersonAllocateResult">
+        select * from salesperson_allocation
+    </select>
+
+    <select id="getSalesPersonAllocateById" resultMap="salesPersonAllocateResult">
+        select * from salesperson_allocation where ID=#{id}
+    </select>
+
+    <insert id="addSalesPersonAllocate" parameterType="com.ssix.project02.pojo.SalesPersonAllocate">
+        insert into salesperson_allocation(SalespersonID,OrderID,DealStatus,DealTime,CreateTime,UpdateTime)values(#{SalespersonID},#{OrderID},#{DealStatus},#{DealTime},#{CreateTime},#{UpdateTime})
+    </insert>
+
+    <update id="updateSalesPersonAllocate" parameterType="com.ssix.project02.pojo.SalesPersonAllocate">
+        update salesperson_allocation
+        <set>
+            <if test="SalespersonID!=null">
+                SalespersonID = #{SalespersonID} ,
+            </if>
+            <if test="OrderID!=null">
+                OrderID = #{OrderID} ,
+            </if>
+            <if test="DealStatus!=null">
+                DealStatus = #{DealStatus} ,
+            </if>
+            <if test="DealTime!=null">
+                DealTime = #{DealTime} ,
+            </if>
+            <if test="CreateTime!=null">
+                CreateTime = #{CreateTime} ,
+            </if>
+            <if test="UpdateTime!=null">
+                UpdateTime = #{UpdateTime} ,
+            </if>
+        </set>
+
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteSalesPersonAllocate">
+        delete from salesperson_allocation where ID = #{id}
+    </delete>
+
+</mapper>

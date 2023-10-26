@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.OrderFeesMapper">
+
+    <resultMap id="orderFeesResult" type="com.ssix.project02.pojo.OrderFees">
+        <id property="id" column="ID"/>
+    </resultMap>
+
+    <select id="getOrderFees" resultMap="orderFeesResult">
+        select * from order_fees
+    </select>
+
+    <select id="getOrderFeesById" resultMap="orderFeesResult">
+        select * from order_fees where ID=#{id}
+    </select>
+
+    <insert id="addOrderFees" parameterType="com.ssix.project02.pojo.OrderFees">
+        insert into order_fees(LoanPlatformID,OrderID,Amount,createTime,updateTime)values(#{LoanPlatformID},#{OrderID}, #{Amount}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateOrderFees" parameterType="com.ssix.project02.pojo.OrderFees">
+        update order_fees
+        <set>
+            <if test="LoanPlatformID!=null">
+                LoanPlatformID = #{LoanPlatformID} ,
+            </if>
+            <if test="OrderID!=null">
+                OrderID = #{OrderID} ,
+            </if>
+            <if test="Amount!=null">
+                Amount = #{Amount} ,
+            </if>
+            <if test="createTime!=null">
+                createTime = #{createTime} ,
+            </if>
+            <if test="updateTime!=null">
+                updateTime = #{updateTime} ,
+            </if>
+        </set>
+
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteOrderFees">
+        delete from order_fees where ID = #{id}
+    </delete>
+
+</mapper>

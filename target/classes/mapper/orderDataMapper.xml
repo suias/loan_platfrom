@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssix.project02.mapper.OrderDataMapper">
+
+    <resultMap id="orderDataResult" type="com.ssix.project02.pojo.OrderData">
+        <id property="id" column="id"/>
+        <result property="accFund" column="accumulation_fund"></result>
+        <result property="incomeType" column="income_type"></result>
+        <result property="sesameScore" column="sesame_score"></result>
+        <result property="creditCard" column="credit_card"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="platformId" column="platform_id"></result>
+    </resultMap>
+
+    <select id="getOrderData" resultMap="orderDataResult">
+        select * from order_data
+    </select>
+
+    <select id="getOrderDataById" resultMap="orderDataResult">
+        select * from order_data where id=#{id}
+    </select>
+
+    <insert id="addOrderData" parameterType="com.ssix.project02.pojo.OrderData">
+        insert into order_data(name,gender,phone,age,accumulation_fund,occupation,income_type,sesame_score,credit_card,create_time,update_time,platform_id)values(#{name}, #{gender}, #{phone}, #{age}, #{accFund}, #{occupation}, #{incomeType},#{sesameScore}, #{creditCard}, #{createTime}, #{updateTime}, #{platformId})
+    </insert>
+
+    <update id="updateOrderData" parameterType="com.ssix.project02.pojo.OrderData">
+        update order_data
+        <set>
+            <if test="name!=null">
+                name = #{name} ,
+            </if>
+            <if test="gender!=null">
+                gender = #{gender} ,
+            </if>
+            <if test="phone!=null">
+                phone = #{phone} ,
+            </if>
+            <if test="age!=null">
+                age = #{age} ,
+            </if>
+            <if test="accFund!=null">
+                accumulation_fund = #{accFund} ,
+            </if>
+            <if test="occupation!=null">
+                occupation = #{occupation} ,
+            </if>
+            <if test="incomeType!=null">
+                income_type = #{incomeType} ,
+            </if>
+            <if test="sesameScore!=null">
+                sesame_score = #{sesameScore} ,
+            </if>
+            <if test="creditCard!=null">
+                credit_card = #{creditCard} ,
+            </if>
+            <if test="createTime!=null">
+                create_time = #{createTime} ,
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime} ,
+            </if>
+            <if test="platformId!=null">
+                platform_id = #{platformId} ,
+            </if>
+        </set>
+
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderData">
+        delete from order_data where id = #{id}
+    </delete>
+
+</mapper>

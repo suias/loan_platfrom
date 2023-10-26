@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/loan_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+mybatis:
+  type-aliases-package: com.ssix.project02.pojo
+  mapper-locations: classpath:mapper/*.xml
+logging:
+  level:
+    com.ssix.project02.mapper : debug
+
+pagehelper:
+  helper-dialect: mysql  #指定数据库类型
+  reasonable: true      #分页合理化,小于0查询第一页，大于总数查询最后一页
+  support-methods-arguments: true #通过 Mapper 接口参数来传递分页参数
+  params: count=countSql  #从对象中根据属性名取值
